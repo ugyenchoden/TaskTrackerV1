@@ -47,3 +47,11 @@ group :development, :test do
 end
 
 
+
+gem "devise", "~> 4.9"
+
+group :development, :test do
+  gem 'rspec-rails', '~> 7.0.0'
+  gem 'shoulda-matchers', '~> 6.0'
+  gem 'pry', '~> 0.15.0'
+end
