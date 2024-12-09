@@ -8,6 +8,8 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 # that will avoid rails generators crashing because migrations haven't been run yet
 # return unless Rails.env.test?
 require 'rspec/rails'
+require 'test_prof/recipes/rspec/let_it_be'
+require 'database_cleaner/active_record'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -36,6 +38,11 @@ end
 Dir[Rails.root.join('spec/support/*.rb')].each { |f| require f }
 
 RSpec.configure do |config|
+  config.include ActionView::Helpers::TranslationHelper
+  config.include FactoryBot::Syntax::Methods
+  config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include ActiveJob::TestHelper
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_paths = [
     Rails.root.join('spec/fixtures')
@@ -68,6 +75,19 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before do
+    DatabaseCleaner.start
+  end
+
+  config.append_after do
+    DatabaseCleaner.clean
+  end
 end
 
 Shoulda::Matchers.configure do |config|
@@ -76,3 +96,4 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+

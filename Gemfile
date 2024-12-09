@@ -49,9 +49,29 @@ end
 
 
 gem "devise", "~> 4.9"
+gem 'devise-jwt'
+gem 'jsonapi-serializer'
+
+gem 'rack-cors'
+
 
 group :development, :test do
   gem 'rspec-rails', '~> 7.0.0'
   gem 'shoulda-matchers', '~> 6.0'
   gem 'pry', '~> 0.15.0'
+  gem 'bullet'
+  gem 'bundler-leak'
+  gem 'database_cleaner-active_record'
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'rails_best_practices'
+  gem 'rswag-specs'
+  gem 'rubocop-performance'
+  gem 'rubocop-rails'
+  gem 'rubocop-rspec'
+  gem 'rubycritic'
+  gem 'simplecov', require: false
+  gem 'strong_migrations'
+  gem 'test-prof'
+  gem 'whenever-test'
 end
