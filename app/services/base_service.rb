@@ -17,5 +17,4 @@ class BaseService
       yield if block_given?
     end
   end
-
 end

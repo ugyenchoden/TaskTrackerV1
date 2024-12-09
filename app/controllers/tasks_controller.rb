@@ -6,9 +6,8 @@ class TasksController < ApplicationController
   end
 
   def create
-    binding.pry
-    task =  Tasks::Creator.new(attributes: task_params).run
-    binding.pry
+    task =  Tasks::Creator.new(attributes: task_params, current_user: current_user).call
+    render json: { task: task }
   end
 
   def update

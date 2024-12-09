@@ -7,11 +7,9 @@ describe 'Creates  a task' do
 
   context 'With valid params' do
     it 'creates a task for a given user' do
-      binding.pry
-      post '/tasks',  params: { task: { title: 'test', description: 'test', status: 1 } }, as: :json
-      binding.pry
-      expect(status).to eq(201)
-      expect(json['id']).to eq(user.id)
+      post '/tasks',  params: { task: { title: 'test', description: 'test', status: 1 } }, headers: header_params(token: token(user)), as: :json
+      expect(status).to eq(200)
+      expect(json['task']['title']).to eq('test')
     end
   end
 
