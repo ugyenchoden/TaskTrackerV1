@@ -1,4 +1,4 @@
 module Tasks 
-  class Finder < BaseService
+  module Finder < BaseService
   end
 end
